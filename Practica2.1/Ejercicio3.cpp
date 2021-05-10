@@ -39,7 +39,7 @@ int main(int argc, char** argv){
     }
 
     freeaddrinfo(cliente);
-    
+
     err = getaddrinfo(argv[1], argv[2], &hints, &servidor);
 
     if(err != 0){
@@ -71,4 +71,6 @@ int main(int argc, char** argv){
         std::cerr << "Error close: " << strerror(errno) << std::endl; 
         return -errno;
     }
+
+    return 0;
 }
