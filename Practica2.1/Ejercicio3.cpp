@@ -39,6 +39,7 @@ int main(int argc, char** argv){
     }
 
     freeaddrinfo(cliente);
+    
     err = getaddrinfo(argv[1], argv[2], &hints, &servidor);
 
     if(err != 0){
@@ -62,6 +63,8 @@ int main(int argc, char** argv){
     }
 
     std::cout << buffer << std::endl;
+
+    freeaddrinfo(servidor);
 
     err = close(sock);
     if(err < 0){
