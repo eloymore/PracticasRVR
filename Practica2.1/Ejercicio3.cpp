@@ -32,12 +32,6 @@ int main(int argc, char** argv){
         return -errno;
     }
 
-    err = bind(sock, cliente->ai_addr, cliente->ai_addrlen);
-    if(err < 0){
-        std::cerr << "Error bind: " << strerror(errno) << std::endl; 
-        return -errno;
-    }
-
     freeaddrinfo(cliente);
 
     err = getaddrinfo(argv[1], argv[2], &hints, &servidor);
