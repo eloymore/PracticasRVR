@@ -33,8 +33,8 @@ int main(int argc, char** argv){
 
     err = connect(sock, servidor->ai_addr, servidor->ai_addrlen);
     if(err != 0){
-        std::cerr << "Error connect: " << gai_strerror(err) << std::endl;
-        return err;
+        std::cerr << "Error connect: " << strerror(errno) << std::endl; 
+        return -errno;
     }
 
     char outbuffer[256];
