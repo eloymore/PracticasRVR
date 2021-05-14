@@ -117,7 +117,7 @@ int main(int argc, char** argv){
     for(int i = 0; i < MAX_THREADS; ++i){
         MessageThread* mthread = new MessageThread(sock);
 
-        std::thread([&mthread](){
+        std::thread([mthread](){
             mthread->recvMessage();
             delete mthread;
         }).detach();
@@ -127,7 +127,7 @@ int main(int argc, char** argv){
     while(strcmp(mainbuffer, "q\0") != 0){
         std::cin >> mainbuffer;
     }
-    
+
     std::cout << "Saliendo...\n";
     err = close(sock);
     if(err < 0){
