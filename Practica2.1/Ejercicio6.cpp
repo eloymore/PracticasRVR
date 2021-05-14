@@ -127,6 +127,7 @@ int main(int argc, char** argv){
     while(strcmp(mainbuffer, "q\0") != 0){
         std::cin >> mainbuffer;
     }
+    
     std::cout << "Saliendo...\n";
     err = close(sock);
     if(err < 0){

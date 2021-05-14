@@ -19,25 +19,16 @@ int main(int argc, char** argv){
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
 
-    int err = getaddrinfo(argv[1], "8888", &hints, &cliente);
-
-    if(err != 0){
-        std::cerr << "Error getaddrinfo cliente: " << gai_strerror(err) << std::endl;
-        return err;
-    }
-
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
     if(sock < 0){
         std::cerr << "Error socket: " << strerror(errno) << std::endl; 
         return -errno;
     }
 
-    freeaddrinfo(cliente);
-
-    err = getaddrinfo(argv[1], argv[2], &hints, &servidor);
+    int err = getaddrinfo(argv[1], argv[2], &hints, &servidor);
 
     if(err != 0){
-        std::cerr << "Error getaddrinfo server: " << gai_strerror(err) << std::endl;
+        std::cerr << "Error getaddrinfo: " << gai_strerror(err) << std::endl;
         return err;
     }
 
