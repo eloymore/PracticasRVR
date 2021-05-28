@@ -71,18 +71,21 @@ int main(int argc, char **argv)
     // Escribir la serialización en un fichero
     int fd = open("./data_jugador", O_CREAT | O_TRUNC | O_RDWR, 0666);
     if (fd == -1){
-        perror("No se puede crear el archivo ./data_jugador");
-        return -1;
+        std::cout << "Error open: " << strerror(errno) << std::endl;
+        return -errno;
     }
     if(write(fd, one_w.data(), one_w.size()) == -1){
-        perror("No se ha podido escribir en el archivo");
+        std::cout << "Error write: " << strerror(errno) << std::endl;
         return -errno;
     }
     // Cerrar el archivo
     if(close(fd) == -1){
-        perror("No se ha podido cerrar el archivo");
+        std::cout << "Error close: " << strerror(errno) << std::endl;
         return -errno;
     }
+
+    // El comando od muestra en la consola el contenido de un archivo en octal por defecto u otro formato
+    // El comando muestra el archivo serializado
 
     return 0;
 }
