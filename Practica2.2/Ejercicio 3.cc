@@ -39,8 +39,10 @@ public:
 
     int from_bin(char * data)
     {
-        char * bin = _data;
+        int32_t data_size = 80 + 2 * sizeof(int16_t);
+        alloc_data(data_size);
 
+        char * bin = data;
         memcpy(name, bin, MAX_NAME);
         bin += MAX_NAME;
 
@@ -83,9 +85,30 @@ int main(int argc, char **argv)
         std::cout << "Error close: " << strerror(errno) << std::endl;
         return -errno;
     }
+    // Abre de nuevo el archivo, ahora para leer solo
+    fd = open("./data_jugador", O_RDONLY, 0666);
+    if (fd == -1){
+        std::cout << "Error open2: " << strerror(errno) << std::endl;
+        return -errno;
+    }
+    // Lee los datos
+    char data[one_w.size()];
+    if(read(fd, data, one_w.size()) == -1){
+        std::cout << "Error read: " << strerror(errno) << std::endl;
+        return -errno;
+    }
 
-    // El comando od muestra en la consola el contenido de un archivo en octal por defecto u otro formato
-    // El comando muestra el archivo serializado
+    Jugador j2("", 0, 0);
+    j2.from_bin(data);
+
+    // Cerrar el archivo
+    if(close(fd) == -1){
+        std::cout << "Error close: " << strerror(errno) << std::endl;
+        return -errno;
+    }
+
+    // Se muestra por consola
+    std::cout << j2.name << "\t" << j2.x << "\t" << j2.y << std::endl;
     return 0;
 }
 
